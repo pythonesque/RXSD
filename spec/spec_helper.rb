@@ -4,7 +4,12 @@
 # Licensed under the AGPLv3+ http://www.gnu.org/licenses/agpl.txt
 
 require 'rubygems'
-require 'spec'
+
+begin
+    require 'spec'
+rescue LoadError
+    require 'rspec'
+end
 
 CURRENT_DIR=File.dirname(__FILE__)
 $: << File.expand_path(CURRENT_DIR + "/../lib")

@@ -4,16 +4,27 @@
 # Licensed under the LGPLv3+ http://www.gnu.org/licenses/lgpl.txt
 
 require 'rake/rdoctask'
-require 'spec/rake/spectask'
+begin
+    require 'rspec/core/rake_task'
+rescue LoadError
+    require 'spec/rake/spectask'
+end
 require 'rake/gempackagetask'
 
 
 GEM_NAME="rxsd"
 PKG_VERSION='0.5.1'
 
+
 desc "Run all specs"
-Spec::Rake::SpecTask.new('spec') do |t|
-  t.spec_files = FileList['spec/**/*_spec.rb']
+
+if RSpec
+    RSpec::Core::RakeTask.new(:spec) 
+    task :default => :spec
+else
+    Spec::Rake::SpecTask.new('spec') do |t|
+	t.spec_files = FileList['spec/**/*_spec.rb']
+    end
 end
 
 Rake::RDocTask.new do |rd|
