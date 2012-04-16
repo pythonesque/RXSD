@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 # XSD to Ruby class converted
 #
 # Usage xsd_to_ruby xsd_uri output_dir

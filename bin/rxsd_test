@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 # Simple rxsd test utility
 #
 # Usage rxsd_test uri-to-schema uri-to-xml-instance
