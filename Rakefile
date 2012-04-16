@@ -3,28 +3,18 @@
 # Copyright (C) 2010 Mohammed Morsi <movitto@yahoo.com>
 # Licensed under the LGPLv3+ http://www.gnu.org/licenses/lgpl.txt
 
-require 'rake/rdoctask'
-begin
-    require 'rspec/core/rake_task'
-rescue LoadError
-    require 'spec/rake/spectask'
-end
-require 'rake/gempackagetask'
-
+require 'rdoc/task'
+require 'rspec/core/rake_task'
+require 'rubygems/package_task'
+require "date"
 
 GEM_NAME="rxsd"
-PKG_VERSION='0.5.1'
+PKG_VERSION='0.5.2'
 
 
 desc "Run all specs"
-
-if RSpec
-    RSpec::Core::RakeTask.new(:spec) 
-    task :default => :spec
-else
-    Spec::Rake::SpecTask.new('spec') do |t|
-	t.spec_files = FileList['spec/**/*_spec.rb']
-    end
+RSpec::Core::RakeTask.new('spec') do |t|
+  t.pattern = 'spec/**/*_spec.rb'
 end
 
 Rake::RDocTask.new do |rd|
@@ -35,27 +25,29 @@ end
 
 PKG_FILES = FileList['lib/**/*.rb', 'COPYING', 'LICENSE', 'Rakefile', 'README.rdoc', 'spec/**/*.rb' ]
 
+
 SPEC = Gem::Specification.new do |s|
     s.name = GEM_NAME
     s.version = PKG_VERSION
     s.files = PKG_FILES
     s.executables << 'xsd_to_ruby' << 'rxsd_test'
 
-    s.required_ruby_version = '>= 1.8.1'
+    s.required_ruby_version = '>= 1.9.1'
     s.required_rubygems_version = Gem::Requirement.new(">= 1.3.3")
 
-    s.add_dependency('libxml-ruby', '~> 1.1.4')
-    s.add_development_dependency('rspec', '~> 1.3.0')
+    s.add_dependency('libxml-ruby', '~> 2.3.1')
+    s.add_dependency('active_support', '~>3.0')
+    s.add_development_dependency('rspec', '~> 2.8.0')
 
     s.author = "Mo Morsi"
     s.email = "mo@morsi.org"
-    s.date = %q{2011-04-10}
+    s.date = Date.today.to_s
     s.description = %q{A library to translate xsd schemas and xml implementations into ruby classes/objects}
     s.summary = %q{A library to translate xsd schemas and xml implementations into ruby classes/objects}
     s.homepage = %q{http://morsi.org/projects/RXSD}
 end
 
-Rake::GemPackageTask.new(SPEC) do |pkg|
+Gem::PackageTask.new(SPEC) do |pkg|
     pkg.need_tar = true
     pkg.need_zip = true
 end
