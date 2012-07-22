@@ -18,7 +18,7 @@ class RubyClassBuilder < ClassBuilder
       return nil    if @klass_name.nil?
 
       # return if we can find constant corresponding to class name
-      if Object.constants.include? @klass_name
+      if Object.const_defined? @klass_name
         @klass = @klass_name.constantize
         return @klass
       end
@@ -36,7 +36,7 @@ class RubyClassBuilder < ClassBuilder
       end
 
       # create class
-      Object.const_set(@klass_name, Class.new(superclass)) unless Object.const_defined?(@klass_name)
+      Object.const_set(@klass_name, Class.new(superclass))
       @klass = @klass_name.constantize
 
       # FIXME should only do this if the klass corresponds to a simple type
