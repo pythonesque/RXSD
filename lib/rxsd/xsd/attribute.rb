@@ -100,7 +100,7 @@ class Attribute
 
        unless @class_builder.nil? || @name == "" || @name.nil?
           @class_builder.attribute_name = @name
-          @class_builder.klass_name = @name.camelize if @class_builder.klass.nil? && @class_builder.klass_name.nil?
+          @class_builder.klass_name = @name.underscore.camelize if @class_builder.klass.nil? && @class_builder.klass_name.nil?
        end
      end
 

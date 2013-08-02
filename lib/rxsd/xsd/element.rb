@@ -136,7 +136,7 @@ class Element
 
        end
 
-       @class_builder.klass_name = @name.camelize unless @class_builder.nil? || @name == "" || @name.nil?
+       @class_builder.klass_name = @name.underscore.camelize unless @class_builder.nil? || @name == "" || @name.nil?
      end
 
      return @class_builder

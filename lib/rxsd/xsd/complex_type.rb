@@ -85,7 +85,7 @@ class ComplexType
          #@class_builder = ClassBuilder.new
       end
 
-      @class_builder.klass_name = @name.camelize unless @name.nil?
+      @class_builder.klass_name = @name.underscore.camelize unless @name.nil?
 
       @attributes.each { |att|
          @class_builder.attribute_builders.push att.to_class_builder

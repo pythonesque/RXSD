@@ -82,7 +82,7 @@ class SimpleType
       end
     end
 
-    @class_builder.klass_name = @name.camelize unless @name.nil?
+    @class_builder.klass_name = @name.underscore.camelize unless @name.nil?
     return @class_builder
   end
 

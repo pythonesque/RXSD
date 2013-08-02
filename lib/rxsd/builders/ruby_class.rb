@@ -20,6 +20,7 @@ class RubyClassBuilder < ClassBuilder
       # return if we can find constant corresponding to class name
       if Object.const_defined? @klass_name
         @klass = @klass_name.constantize
+        puts @klass
         return @klass
       end
 
